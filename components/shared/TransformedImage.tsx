@@ -1,6 +1,8 @@
-import { dataUrl, debounce, getImageSize } from '@/lib/utils';
+"use client";
+
+import { dataUrl, debounce, download, getImageSize } from '@/lib/utils';
 import { TransformedImageProps } from '@/types'
-import { CldImage } from 'next-cloudinary';
+import { CldImage, getCldImageUrl } from 'next-cloudinary';
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import React from 'react'
@@ -15,11 +17,20 @@ const TransformedImage = ({
     hasDownload = false
 }: TransformedImageProps) => {
 
-    const downloadHandler =() =>{};
+    const downloadHandler =(e:React.MouseEvent<HTMLButtonElement,MouseEvent>) =>{
+        e.preventDefault();
+
+        download(getCldImageUrl({
+            width:image?.width,
+            height:image?.height,
+            src:image?.publicId,
+            ...transformationConfig
+        }),title)
+    };
   return (
     <div className="flex flex-col gap-4">
         <div className="flex-between">
-            <h3 className="h3-bold">
+            <h3 className="h3-bold text-dark-600">
                 Transformed
             </h3>
 
@@ -30,7 +41,7 @@ const TransformedImage = ({
                     alt="Download"
                     width={24}
                     height={24}
-                    className="pb-[16px]"
+                    className="pb-[10px]"
                      />
                 </button>
             )}
@@ -51,7 +62,7 @@ const TransformedImage = ({
                 onError={() =>{
                     debounce(() =>{
                         setIsTransforming && setIsTransforming(false)
-                    },8000)
+                    },8000)()
                 }}
                 {...transformationConfig}
                 />
@@ -60,10 +71,11 @@ const TransformedImage = ({
                     <div className="transforming-loader">
                         <Image
                         src="/assets/icons/spinner.svg"
-                        alt="Transforming"
+                        alt="spinner"
                         width={50}
                         height={50}
                         />
+                        <p className="text-white/80" >Please Wait...</p>
                     </div>
                 )}
             </div>

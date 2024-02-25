@@ -6,6 +6,7 @@ import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
 import { CreateUserParams, UpdateUserParams } from "@/types";
+import { auth } from "@clerk/nextjs";
 
 // CREATE
 export async function createUser(user: CreateUserParams) {
@@ -75,10 +76,12 @@ export async function deleteUser(clerkId: string) {
 }
 
 // USE CREDITS
-export async function updateCredits(userId: string, creditFee: number) {
+export async function updateCredits(userId:string, creditFee: number) {
   try {
     await connectToDatabase();
 
+    // const {userId} = auth()
+    // const user = await User.findOne({clerkId:userId})
     const updatedUserCredits = await User.findOneAndUpdate(
       { _id: userId },
       { $inc: { creditBalance: creditFee }},

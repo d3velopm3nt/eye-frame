@@ -82,7 +82,7 @@ declare type CreateUserParams = {
   };
   
   declare type CreateTransactionParams = {
-    stripeId: string;
+    paystackId: string;
     amount: number;
     credits: number;
     plan: string;
