@@ -36,7 +36,7 @@ const Checkout = ({
   const componentProps = {
     ...paystackConfig,
     text: 'Buy Transformation Credits',
-    onSuccess: (reference:any) => handleSuccess(reference),
+    onSuccess: (ref:any) => { handleSuccess(ref)},
     onClose: () => handleClose()
 };
 
