@@ -33,15 +33,8 @@ const Checkout = ({
 }) => {
   const { toast } = useToast();
 
-  const componentProps = {
-    ...paystackConfig,
-    text: 'Buy Transformation Credits',
-    onSuccess: (ref:any) => { handleSuccess(ref)},
-    onClose: () => handleClose()
-};
-
 // you can call this function anything
-const handleSuccess = async (reference:any) => {
+const handleSuccess = async (reference?:any) => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
     await updateCredits(buyerId,credits);
@@ -67,6 +60,13 @@ const handleClose = () => {
 // implementation for  whatever you want to do when the Paystack dialog closed.
 console.log('closed')
 }
+
+const componentProps = {
+    ...paystackConfig,
+    text: 'Buy Transformation Credits',
+    onSuccess: (ref?:any)  => handleSuccess(ref),
+    onClose: () => handleClose()
+};
 
   const initializePayment =  usePaystackPayment(paystackConfig);
 
