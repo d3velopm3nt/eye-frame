@@ -14,7 +14,7 @@ export async function createTransaction(transaction: CreateTransactionParams) {
 
     // Create a new transaction with a buyerId
     const newTransaction = await Transaction.create({
-      ...transaction, buyer: transaction.buyerId
+      ...transaction, buyer: transaction.buyerId, transactionId: transaction.transactionId
     })
 
     await updateCredits(transaction.buyerId, transaction.credits);

@@ -40,6 +40,7 @@ const handleSuccess = async (reference?:any) => {
     await updateCredits(buyerId,credits);
     await createTransaction({
         paystackId: reference.reference,
+        transactionId: reference.transaction,
         amount: amount,
         credits: credits,
         buyerId:buyerId,

@@ -5,10 +5,15 @@ const TransactionSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  paystackId: {
+  transactionId: {
     type: String,
     required: true,
     unique: true,
+  },
+  paystackId: 
+  { 
+    type:String, 
+    required: true
   },
   amount: {
     type: Number,

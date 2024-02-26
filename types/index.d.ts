@@ -83,6 +83,7 @@ declare type CreateUserParams = {
   
   declare type CreateTransactionParams = {
     paystackId: string;
+    transactionId: string;
     amount: number;
     credits: number;
     plan: string;
